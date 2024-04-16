@@ -1,37 +1,40 @@
 import React, { useState, useRef } from "react"
+import { useHistory } from "react-router-dom"
 
 import axios from "axios"
 import People from "../../assets/people.svg"
 import Arrow from "../../assets/arrow.svg"
 
+import H1 from "../../components/Title"
+import ContainerItens from "../../components/ContanerItens"
+import Button from "../../components/Button"
 import {
   Container,
   Image,
-  ContainerItens,
-  H1,
   InputLabel,
   Input,
-  Button,
 } from "./styles";
 
 function App() {
   const [users, setUsers] = useState([]);
-  const inputName = useRef()
-  const inputAge = useRef()
+  const history = useHistory();
+  const inputName = useRef();
+  const inputAge = useRef();
 
   async function addNewUser() {
-      const { data: newUser } = await axios.post("http://localhost:3001/users", {
-        name: inputName.current.value,
-        age: inputAge.current.value,
-     });
+    const { data: newUser } = await axios.post("http://localhost:3001/users", {
+      name: inputName.current.value,
+      age: inputAge.current.value,
+    });
 
-      setUsers([...users, newUser]);
+    setUsers([...users, newUser]);
+    history.push("/usuarios")
   }
 
   return (
     <Container>
       <Image alt="logo-image" src={People} />
-      <ContainerItens>
+      <ContainerItens >
 
         <H1>Olá</H1>
 
